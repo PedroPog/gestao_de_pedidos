@@ -6,17 +6,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "tb_usuario")
 public class UsuarioModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @NotBlank(message = "Nome é obrigatório")
@@ -25,6 +21,7 @@ public class UsuarioModel {
 
     @Email(message = "E-mail inválido")
     @NotBlank(message = "E-mail é obrigatório")
+    @Column(unique = true)
     private String email;
 
     @NotBlank(message = "Senha é obrigatória")
@@ -32,4 +29,37 @@ public class UsuarioModel {
     @JsonIgnore
     @JsonProperty("senha")
     private String senha;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

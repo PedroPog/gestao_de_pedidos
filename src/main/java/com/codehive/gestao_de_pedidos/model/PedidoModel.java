@@ -27,4 +27,36 @@ public class PedidoModel {
 
     @Min(value = 0, message = "O total deve ser positivo")
     private double total;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public UsuarioModel getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
+
+    public Timestamp getData() {
+        return data;
+    }
+
+    public void setData(Timestamp data) {
+        this.data = data;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
 }
