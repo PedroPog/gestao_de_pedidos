@@ -16,4 +16,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel,Integer> {
     @Transactional
     @Query("UPDATE UsuarioModel u SET u.roleStatus = :role WHERE u.id = :id")
     void updateRoleStatusById(int id, RoleName role);
+
+    @Query("SELECT u.roleStatus FROM UsuarioModel u WHERE u.email = :email")
+    RoleName findRoleNameByEmail(String email);
 }

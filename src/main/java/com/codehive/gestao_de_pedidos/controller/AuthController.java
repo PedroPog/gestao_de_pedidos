@@ -22,6 +22,7 @@ public class AuthController {
         if (response.containsKey("id")) {
             return ResponseEntity.ok()
                     .header("User-ID", response.get("id").toString()) // Adiciona o ID no header
+                    .header("Token-Auth",response.get("token").toString())// Token
                     .body(response.get("message").toString()); // Retorna a mensagem no body
         } else {
             return ResponseEntity.status(401).body(response.get("message").toString());
