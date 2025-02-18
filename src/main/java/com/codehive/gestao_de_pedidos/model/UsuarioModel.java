@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -12,7 +13,7 @@ import jakarta.validation.constraints.Size;
 public class UsuarioModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank(message = "Nome é obrigatório")
@@ -26,9 +27,11 @@ public class UsuarioModel {
 
     @NotBlank(message = "Senha é obrigatória")
     @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
-    @JsonIgnore
-    @JsonProperty("senha")
     private String senha;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Regra de usuário é obrigatória!")
+    private RoleName roleStatus = RoleName.ROLE_CLIENT;
 
 
     public int getId() {
@@ -61,5 +64,13 @@ public class UsuarioModel {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public RoleName getRoleStatus() {
+        return roleStatus;
+    }
+
+    public void setRoleStatus(RoleName roleStatus) {
+        this.roleStatus = roleStatus;
     }
 }

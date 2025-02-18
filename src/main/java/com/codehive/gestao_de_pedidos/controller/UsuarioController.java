@@ -1,6 +1,7 @@
 package com.codehive.gestao_de_pedidos.controller;
 
 import com.codehive.gestao_de_pedidos.model.UsuarioModel;
+import com.codehive.gestao_de_pedidos.model.dto.RetornoUsuario;
 import com.codehive.gestao_de_pedidos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UsuarioController {
     private UsuarioService service;
 
     @GetMapping
-    public List<UsuarioModel> listarTodos() {
+    public List<RetornoUsuario> listarTodos() {
         return service.listarUsuarios();
     }
 
