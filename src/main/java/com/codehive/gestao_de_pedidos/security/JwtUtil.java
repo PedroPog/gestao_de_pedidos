@@ -14,6 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -23,7 +24,7 @@ public class JwtUtil {
     private static final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hora (em milissegundos)
     private static final String ALGORITHM = "HmacSHA256";
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    AuthService authService = new AuthService();
+    //AuthService authService = new AuthService();
 
     /**
      * Gera um token JWT sem bibliotecas externas
@@ -97,14 +98,18 @@ public class JwtUtil {
         }
     }
 
-    public ResponseEntity<?> validarTokenAdmin(String token){
+    public Map<String, String> validarTokenAdmin(String token){
+        Map<String, String> resposta = new HashMap<>();
         boolean valido = validarToken(token);
         if(valido){
-            RoleName roleName = authService.verificarRoleUser(extrairEmail(token));
-            if(roleName.equals(RoleName.ROLE_ADMINS))return ResponseEntity.ok("Usuário autenticado com sucesso!");
-            return ResponseEntity.ok("Usuário não autenticado!");
+            String email = extrairEmail(token);
+            resposta.put("email", email);
+            resposta.put("status", "valido");
+        }else {
+            resposta.put("status", "invalido");
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido ou expirado!");
+
+        return resposta;
     }
 
     /**

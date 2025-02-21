@@ -17,7 +17,7 @@ public class AuthService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-    private JwtUtil jwtUtil;
+    private JwtUtil jwtUtil = new JwtUtil();
 
     public Map<String, Object> autenticarUsuario(LoginDTO loginDTO) {
         Map<String, Object> response = new HashMap<>();
